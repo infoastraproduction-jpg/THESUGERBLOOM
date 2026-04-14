@@ -295,3 +295,71 @@ button:hover, .btn:hover {
     font-size: 14px;
     color: #ccc;
 }
+
+.sticky-order {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #ff6f91;
+    text-align: center;
+    padding: 15px;
+    z-index: 999;
+}
+
+.sticky-order a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero h2 {
+    animation: fadeUp 1s ease-in-out;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card img {
+    transition: 0.4s;
+}
+
+.card img:hover {
+    transform: scale(1.1);
+}
+
+.testimonials {
+    background: #fff0f5;
+    text-align: center;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background: #ff6f91;
+    width: 0%;
+    z-index: 999;
+}
+
+.order select {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 260px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}

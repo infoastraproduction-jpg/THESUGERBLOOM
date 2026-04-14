@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="loader">TOSHI...</div>
-
+<div id="progress-bar"></div>
 <!-- NAVBAR -->
 <header>
     <h1>The Sugar Bloom</h1>
@@ -32,11 +32,22 @@
 <section class="order fade.in">
     <h2>Place Your Order</h2>
     <form onsubmit="sendToWhatsApp(event)">
+        <select id="category" onchange="updateOptions()" required>
+    <option value="">Select Category</option>
+    <option value="cakes">Cakes & Pastries</option>
+    <option value="cheesecake">Cheesecake</option>
+    <option value="brownies">Brownies</option>
+    <option value="chocolate">Chocolate</option>
+</select>
+<select id="product" required>
+    <option value="">Select Item</option>
+</select>
         <input type="text" id="name" placeholder="Your Name" required>
         <input type="text" id="cake" placeholder="Cake Type" required>
         <input type="date" id="date" required>
         <textarea id="message" placeholder="Custom Message"></textarea>
         <button type="submit">Submit Order</button>
+
     </form>
 </section>
 
@@ -45,25 +56,29 @@
     <h2>Our Menu</h2>
     <div class="menu-items">
 
-        <div class="card">
-            <img src="images/cake.jpg">
-            <p>Cakes & Pastries</p>
-        </div>
+       <div class="menu-items">
 
-        <div class="card">
-            <img src="images/chesscake.jpg">
-            <p>Cheesecakes</p>
-        </div>
+    <div class="card">
+        <img src="images/cake.jpg">
+        <h3>Cakes & Pastries</h3>
+    </div>
 
-        <div class="card">
-            <img src="images/brownie.jpg">
-            <p>Brownies</p>
-        </div>
+    <div class="card">
+        <img src="images/chesscake.jpg">
+        <h3>Cheesecakes</h3>
+    </div>
 
-        <div class="card">
-            <img src="images/ch.jpg">
-            <p>Chocolates</p>
-        </div>
+    <div class="card">
+        <img src="images/brownie.jpg">
+        <h3>Brownies</h3>
+    </div>
+
+    <div class="card">
+        <img src="images/ch.jpg">
+        <h3>Chocolates</h3>
+    </div>
+
+</div>
 
     </div>
 </section>
@@ -81,7 +96,11 @@
     <h2>About Us</h2>
     <p>We are a passion-driven home bakery creating premium custom cakes and desserts with love.</p>
 </section>
-
+<section class="testimonials">
+    <h2>What Our Customers Say</h2>
+    <p>"Best cake ever! Highly recommended!" ⭐⭐⭐⭐⭐</p>
+    <p>"Amazing design and taste!" ⭐⭐⭐⭐⭐</p>
+</section>
 <!-- CONTACT -->
 <section id="contact" class="contact fade-in">
     <h2>Contact Us</h2>
@@ -116,15 +135,17 @@ function sendToWhatsApp(e) {
     e.preventDefault();
 
     let name = document.getElementById("name").value;
-    let cake = document.getElementById("cake").value;
+    let category = document.getElementById("category").value;
+    let product = document.getElementById("product").value;
     let date = document.getElementById("date").value;
     let message = document.getElementById("message").value;
 
     let url = "https://wa.me/917009267895?text="
-        + "Name: " + name + "%0a"
-        + "Cake: " + cake + "%0a"
-        + "Date: " + date + "%0a"
-        + "Message: " + message;
+    + "Name: " + name + "%0a"
+    + "Category: " + category + "%0a"
+    + "Item: " + product + "%0a"
+    + "Date: " + date + "%0a"
+    + "Message: " + message;
 
     window.open(url, '_blank');
 }
@@ -146,6 +167,77 @@ window.addEventListener('scroll', () => {
 <script>
 window.onload = function(){
     document.getElementById("loader").style.display = "none";
+}
+</script>
+<div class="sticky-order">
+    <a href="https://wa.me/917009267895?text=Hello%20I%20want%20to%20order%20a%20cake">
+        Order Now on WhatsApp
+    </a>
+</div>
+<script>
+window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.getElementById("progress-bar").style.width = scrolled + "%";
+};
+</script>
+<script>
+function updateOptions() {
+    let category = document.getElementById("category").value;
+    let product = document.getElementById("product");
+
+    let options = "";
+
+    if(category === "cakes"){
+        options = `
+        <option>Vanilla</option>
+        <option>Chocolate</option>
+        <option>Mix Fruit</option>
+        <option>Chocolate Truffle</option>
+        <option>Dry Almond</option>
+        <option>Walnut & Dates</option>
+        <option>Mawa Cake</option>
+        <option>Jaggery Cake</option>
+        <option>Custom (As per demand)</option>
+        `;
+    }
+
+    else if(category === "cheesecake"){
+        options = `
+        <option>New York Baked</option>
+        <option>Lotus Biscoff</option>
+        <option>Blueberry</option>
+        <option>Strawberry</option>
+        <option>Nutella</option>
+        <option>Kunafa</option>
+        <option>Custom (As per demand)</option>
+        `;
+    }
+
+    else if(category === "brownies"){
+        options = `
+        <option>Chocolate Brownie</option>
+        <option>Walnut Brownie</option>
+        <option>Milk Chocolate Brownie</option>
+        <option>Biscoff Brownie</option>
+        <option>Nutella Brownie</option>
+        <option>Custom (As per demand)</option>
+        `;
+    }
+
+    else if(category === "chocolate"){
+        options = `
+        <option>Milk Chocolate</option>
+        <option>White Chocolate</option>
+        <option>Dark Chocolate</option>
+        <option>Dry Fruit Chocolate</option>
+        <option>Kunafa Chocolate</option>
+        <option>Custom (As per demand)</option>
+        `;
+    }
+
+    product.innerHTML = options;
 }
 </script>
 </body>
